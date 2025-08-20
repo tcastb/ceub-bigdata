@@ -83,16 +83,16 @@ Dessa forma, MongoDB e MongoDB Express são ferramentas complementares que simpl
 - Caso pretenda utilizar outras ferramentas, como o Jupyter em conjunto com o MongoDB, é recomendável alocar no mínimo 3072MB de RAM. 
 - Se você planeja executar o Jupyter em conjunto com o MongoDB e Spark, é aconselhável alocar pelo menos 4096MB de RAM. Avalie também a possibilidade de acréscimo de processadores virtuais, de acordo com a capacidade de seu hardware Se você possui à disposição um sistema quad-core, configure a VM para utilizar 2 processadores. 
 
-2. Após os promover os ajustes, inicie a VM. Lembre-se que você deve trabalhar sempre com a versão mais recente do repositório [IDP-BigData](https://github.com/klaytoncastro/idp-bigdata). Navegue até o diretório onde você clonou o repositório (`cd /opt/idp-bigdata`) e obtenha as respectivas atualizações com o comando abaixo: 
+2. Após os promover os ajustes, inicie a VM. Lembre-se que você deve trabalhar sempre com a versão mais recente do repositório [CEUB-BigData](https://github.com/klaytoncastro/ceub-bigdata). Navegue até o diretório onde você clonou o repositório (`cd /opt/ceub-bigdata`) e obtenha as respectivas atualizações com o comando abaixo: 
 
 ```bash
 git pull origin main
 ```
 
-3. Se este for seu primeiro acesso, vá até o diretório `/opt/idp-bigdata/mongodb` e certifique-se que o script `wait-for-it.sh` tenha permissão de execução: 
+3. Se este for seu primeiro acesso, vá até o diretório `/opt/ceub-bigdata/mongodb` e certifique-se que o script `wait-for-it.sh` tenha permissão de execução: 
 
 ```bash
-cd /opt/idp-bigdata/mongodb
+cd /opt/ceub-bigdata/mongodb
 chmod +x wait-for-it.sh
 ```
 

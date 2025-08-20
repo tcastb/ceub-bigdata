@@ -10,9 +10,9 @@ Este guia detalha o processo de limpeza, preparação e importação de dados re
 
 No decorrer do curso, realizaremos a integração de nossas ferramentas de Big Data e NoSQL com o Jupyter. Siga as instruções abaixo para configurar seu ambiente: 
 
-a) Se estiver usando uma VM, conforme instruções fornecidas no `README.md` do repositório [IDP-BigData](https://github.com/klaytoncastro/idp-bigdata), certifique-se de que a VM está executando e que você pode acessá-la via SSH. Caso tenha optado por hospedar os contêineres diretamente em sua máquina, certifique-se de ter o Git, Docker, Docker Compose e os utilitários de processamento e conversão de textos apropriados. 
+a) Se estiver usando uma VM, conforme instruções fornecidas no `README.md` do repositório [CEUB-BigData](https://github.com/klaytoncastro/ceub-bigdata), certifique-se de que a VM está executando e que você pode acessá-la via SSH. Caso tenha optado por hospedar os contêineres diretamente em sua máquina, certifique-se de ter o Git, Docker, Docker Compose e os utilitários de processamento e conversão de textos apropriados. 
 
-b) Navegue até a pasta do repositório, por exemplo: `cd /opt/idp-bigdata`. 
+b) Navegue até a pasta do repositório, por exemplo: `cd /opt/ceub-bigdata`. 
 
 c) Caso **já tenha clonado** o repositório anteriomente, **mas não realizou nenhuma tarefa**, execute o comando a seguir para garantir que seu ambiente esteja com as atualizações mais recentes: 
 
@@ -22,11 +22,11 @@ git pull origin main
 d) Caso esta seja a **primeira clonagem** do repositório ou **já tenha realizado alguma operação**, como a importação de dados, execute os comandos abaixo em seu terminal. 
 
 ```bash
-git clone https://github.com/klaytoncastro/idp-bigdata
+git clone https://github.com/klaytoncastro/ceub-bigdata
 chmod +x permissions.sh
 ./permissions.sh
 ```
-e) Caso queira aproveitar o trabalho anterior, basta renomear a pasta idp-bigdata já clonada e fazer o `git clone` ou `git pull` novamente. 
+e) Caso queira aproveitar o trabalho anterior, basta renomear a pasta ceub-bigdata já clonada e fazer o `git clone` ou `git pull` novamente. 
 
 f) Para permitir a comunicação entre os contêineres do Jupyter e MongoDB, o arquivo `docker-compose.yml` deve ser atualizado para conectá-los à rede `mybridge` que você. 
 
@@ -53,12 +53,12 @@ g) Agora crie a rede virtual `mybridge` no Docker:
 ```bash
 docker network create --driver bridge mybridge
 ```
-h) Acesse as respectivas subpastas em nosso repositório (`/opt/idp-bigdata/mongodb` e `/opt/idp-bigdata/jupyter`) e suba os contêineres do MongoDB e Jupyter em cada uma delas: 
+h) Acesse as respectivas subpastas em nosso repositório (`/opt/ceub-bigdata/mongodb` e `/opt/ceub-bigdata/jupyter`) e suba os contêineres do MongoDB e Jupyter em cada uma delas: 
 
 ```bash
-cd /opt/idp-bigdata/mongodb 
+cd /opt/ceub-bigdata/mongodb 
 docker-compose up -d 
-cd /opt/idp-bigdata/jupyter
+cd /opt/ceub-bigdata/jupyter
 docker-compose build
 docker-compose up -d 
 ```
@@ -145,7 +145,7 @@ Antes de qualquer análise, é importante realizar as etapas de limpeza e prepar
 a) Em seu terminal, baixe e descompacte o arquivo do dataset utilizando os comandos abaixo: 
 
 ```bash
-cd /opt/idp-bigdata/mongodb/datasets
+cd /opt/ceub-bigdata/mongodb/datasets
 wget https://download.inep.gov.br/microdados/microdados_censo_da_educacao_superior_2022.zip --no-check-certificate
 unzip microdados_censo_da_educacao_superior_2022.zip
 ```
@@ -180,7 +180,7 @@ sed '/padrão/a Novo Texto' arquivo.txt
 ```
 ### Remoção e substituição de caracteres indesejados 
 
-a) Precisaremos realizar a remoção e substituição de caracteres indesejados para viabilizar a correta importação do dataset. Vá até a subpasta do dataset (`cd /opt/idp-bigdata/mongodb/inep`) e execute o comando abaixo:
+a) Precisaremos realizar a remoção e substituição de caracteres indesejados para viabilizar a correta importação do dataset. Vá até a subpasta do dataset (`cd /opt/ceub-bigdata/mongodb/inep`) e execute o comando abaixo:
 
 ```bash
 sed 's/\"//g; s/;/,/g' MICRODADOS_ED_SUP_IES_2022.CSV > MICRODADOS_ED_SUP_IES_2022_corrigido.csv

@@ -47,11 +47,11 @@ prediction = loaded_model.predict(X_new)
 
 ### Pré-Requisitos
 
-Siga as instruções iniciais contidas no repositório [idp-bigdata](https://github.com/klaytoncastro/idp-bigdata/) para implantação do ambiente de laboratório, certificando-se de ter compreendido a implantação da VM com Docker que atuará como servidor web, além das ferramentas de gerenciamento, incluindo acesso remoto via SSH e editor de textos Vim, cujos fundamentos e comandos essenciais foram introduzidos em sala de aula. 
+Siga as instruções iniciais contidas no repositório [ceub-bigdata](https://github.com/klaytoncastro/ceub-bigdata/) para implantação do ambiente de laboratório, certificando-se de ter compreendido a implantação da VM com Docker que atuará como servidor web, além das ferramentas de gerenciamento, incluindo acesso remoto via SSH e editor de textos Vim, cujos fundamentos e comandos essenciais foram introduzidos em sala de aula. 
 
 ### Criando o aplicativo
 
-Acesse o ambiente via SSH e vá até o diretório `/opt/idp-bigdata/mlops`. Verifique o código do nosso aplicativo no script `app.py` (use o comando `vim app.py`) ou o editor de sua preferência. 
+Acesse o ambiente via SSH e vá até o diretório `/opt/ceub-bigdata/mlops`. Verifique o código do nosso aplicativo no script `app.py` (use o comando `vim app.py`) ou o editor de sua preferência. 
 
 ### Executando o aplicativo 
 
@@ -127,7 +127,7 @@ curl -X POST -H "Content-Type: application/json" \
 http://localhost:8500/predict
 ```
 
-- Você também pode utilizar um arquivo para fazer `POST` do arquivo `.json`. Vá até pasta /opt/idp-bigdata/mlops/amostras e execute os comandos abaixo: 
+- Você também pode utilizar um arquivo para fazer `POST` do arquivo `.json`. Vá até pasta /opt/ceub-bigdata/mlops/amostras e execute os comandos abaixo: 
 
 ```shell
 curl -X POST -H "Content-Type: application/json" -d @amostra01.json http://localhost:8500/predict

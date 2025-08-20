@@ -13,7 +13,7 @@ Clonando o Repositório:
 
 Em seu terminal ou console, execute o seguinte comando para clonar o repositório:
 ```bash
-git clone https://github.com/klaytoncastro/idp-bigdata
+git clone https://github.com/klaytoncastro/ceub-bigdata
 ```
 
 Executando o Jupyter Notebook com Spark:
@@ -21,7 +21,7 @@ Executando o Jupyter Notebook com Spark:
 Navegue até a subpasta jupyter-spark dentro do diretório clonado:
 bash
 Copy code
-cd idp-bigdata/jupyter-spark
+cd ceub-bigdata/jupyter-spark
 Construa e execute os serviços usando o Docker Compose:
 bash
 Copy code

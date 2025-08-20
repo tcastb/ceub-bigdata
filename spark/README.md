@@ -66,7 +66,7 @@ Construa o contêiner do Spark e posteriormente acesse a IDE Jupyter.
 (`http://localhost:8889`). Alteramos a porta para `8889` para evitar conflitos com a instância do Jupyter sem Spark. 
 
 ```bash
-cd /opt/idp-bigdata/spark
+cd /opt/ceub-bigdata/spark
 chmod +x permissions.sh && ./permissions.sh
 docker-compose up -d --build
 ```

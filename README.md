@@ -1,10 +1,10 @@
 # Laboratórios da Disciplina
 
-Olá, estudante! Seja bem-vindo aos laboratórios da disciplina de Big Data e NoSQL. Este repositório foi desenvolvido para facilitar a configuração e o gerenciamento das ferramentas que utilizaremos. No cenário atual de Tecnologia da Informação e Comunicação (TIC), enfrentamos o desafio de armazenar e gerenciar quantidades massivas de dados, como os mais de 2,5 quintilhões de bytes gerados diariamente por redes sociais, transações financeiras, sensores IoT e dispositivos conectados à Internet. O conceito de Big Data se desenvolve em resposta a essa demanda, sendo caracterizado não apenas pelo grande **Volume**, mas também pela **Velocidade** com que os dados são gerados e processados, a **Variedade** de formatos e fontes, a **Veracidade** dos dados e, finalmente, o potencial **Valor** que podem agregar quando analisados corretamente. Nesse contexto, as ferramentas de Big Data e, também, os sistemas gerenciadores de bancos de dados **NoSQL** (Not-only SQL), emergem como soluções otimizadas para lidar com estas características. 
+Olá, estudante! Seja bem-vindo aos laboratórios da disciplina de **Fundamentos de Big Data**. Este repositório foi desenvolvido para facilitar a configuração e o gerenciamento das ferramentas que utilizaremos. No cenário atual de Tecnologia da Informação e Comunicação (TIC), enfrentamos o desafio de armazenar e gerenciar quantidades massivas de dados, como os mais de 2,5 quintilhões de bytes gerados diariamente por redes sociais, transações financeiras, sensores IoT e dispositivos conectados à Internet. O conceito de Big Data se desenvolve em resposta a essa demanda, sendo caracterizado não apenas pelo grande **Volume**, mas também pela **Velocidade** com que os dados são gerados e processados, a **Variedade** de formatos e fontes, a **Veracidade** dos dados e, finalmente, o potencial **Valor** que podem agregar quando analisados corretamente. Nesse contexto, as ferramentas de **Big Data** e, também, os sistemas gerenciadores de bancos de dados **NoSQL** (Not-only SQL), emergem como soluções otimizadas para lidar com estas características.
 
 ## 1. Instruções Gerais e Desafios
 
-Ao longo do curso, exploraremos conceitos, infraestrutura e aplicações de Big Data e NoSQL por meio de desafios práticos. Cada desafio proporcionará uma experiência aplicada, permitindo que você consolide os conhecimentos adquiridos e aprofunde seu aprendizado de maneira progressiva. Durante essa jornada, você terá contato com ferramentas amplamente utilizadas no mercado e empregará técnicas para resolver problemas reais.
+Ao longo do curso, exploraremos conceitos, infraestrutura e aplicações de Big Data por meio de desafios práticos. Cada desafio proporcionará uma experiência aplicada, permitindo que você consolide os conhecimentos adquiridos e aprofunde seu aprendizado de maneira progressiva. Durante essa jornada, você terá contato com ferramentas amplamente utilizadas no mercado e empregará técnicas para resolver problemas reais.
 
 <!--
 
@@ -25,7 +25,7 @@ Ao longo do curso, exploraremos conceitos, infraestrutura e aplicações de Big 
 | 13 | [Pipeline](./pipeline/)                                                              | Desenvolvimento de Pipeline com Múltiplas Ferramentas      | 28/05/2025 |
 | 14 | [Neo4j](./neo4j/)                                                                    | Prática com Banco de Dados de Grafo                        | 04/06/2025 |
 | 15 | [Spark](./spark/)                                                                    | Processamento Paralelo e Análise de Dados                  | 18/06/2025 |
-| 16 | [Projeto Final](https://ambientevirtual.idp.edu.br/courses/6031/files/848966)        | Projeto Capstone da Disciplina                             | 25/06/2025 |
+| 16 | [Projeto Final]        | Projeto Capstone da Disciplina                             | 25/06/2025 |
 
 -->
 
@@ -34,16 +34,15 @@ Ao longo do curso, exploraremos conceitos, infraestrutura e aplicações de Big 
 | 15 | [Hadoop](./hadoop/)                                                                  | Fundamentos de Processamento Distribuído                   | 11/06/2025 |
 | 17 | [Grafana](./grafana/)                                                                | Prática com Monitoramento, Métricas e Observabilidade      | 25/06/2025 |
 | 06 | [Benchmarking NoSQL: Experimentação com MongoDB e Cassandra](./performance/)         | Modelagem de Experimentos para Análise de Desempenho       | 02/04/2025 |
-
---> 
+-->
 
 ## 2. Infraestrutura dos Laboratórios
 
-Considerando o tempo e recursos disponíveis, optamos por utilizar uma infraestrutura baseada em código, por meio do Docker, uma ferramenta leve de virtualização de aplicativos, que permite implantar, levantar e baixar softwares e suas dependências (bibliotecas, configurações e código) com simples comandos via orquestrador `compose` (`docker compose up -d`). Trata-se de uma solução amplamente adotada no mercado para criar ambientes replicáveis e consistentes, eliminando a necessidade de configurar e instalar manualmente cada aplicação em diferentes máquinas Diferentemente de máquinas virtuais, que replicam um sistema operacional inteiro, o Docker compartilha o kernel do sistema host, tornando a execução leve e eficiente em ambientes isolados, chamados containers. Esses containers são altamente portáveis e podem ser implantados, executados e rapidamente eliminados em qualquer sistema operacional compatível. 
+Considerando o tempo e recursos disponíveis, optamos por utilizar uma infraestrutura baseada em código, por meio do Docker, uma ferramenta leve de virtualização de aplicativos, que permite implantar, levantar e baixar softwares e suas dependências (bibliotecas, configurações e código) com simples comandos via orquestrador `compose` (`docker compose up -d`). Trata-se de uma solução amplamente adotada no mercado para criar ambientes replicáveis e consistentes, eliminando a necessidade de configurar e instalar manualmente cada aplicação em diferentes máquinas Diferentemente de máquinas virtuais, que replicam um sistema operacional inteiro, o Docker compartilha o kernel do sistema host, tornando a execução leve e eficiente em ambientes isolados, chamados containers. Esses containers são altamente portáveis e podem ser implantados, executados e rapidamente eliminados em qualquer sistema operacional compatível.
 
-Para tal, nos sistemas Microsoft Windows, recomenda-se a utilização do WSL (Windows Subsystem for Linux) como requisito para instalação do Docker. O WSL é um recurso nativo do Windows que permite a execução de distribuições Linux sem a necessidade de emulação ou virtualização completa, como o Microsoft Hyper-V ou Oracle VirtualBox. Projetado para facilitar o desenvolvimento de software no Windows, o WSL oferece uma integração simplificada entre os dois sistemas operacionais, tornando o uso do Docker mais eficiente e acessível. O uso do Docker, em conjunto com o WSL, é essencial para nossos laboratórios, pois garante a replicabilidade do ambiente de desenvolvimento, independentemente do sistema operacional usado por cada estudante. 
+Para tal, nos sistemas Microsoft Windows, recomenda-se a utilização do WSL (Windows Subsystem for Linux) como requisito para instalação do Docker. O WSL é um recurso nativo do Windows que permite a execução de distribuições Linux sem a necessidade de emulação ou virtualização completa, como o Microsoft Hyper-V ou Oracle VirtualBox. Projetado para facilitar o desenvolvimento de software no Windows, o WSL oferece uma integração simplificada entre os dois sistemas operacionais, tornando o uso do Docker mais eficiente e acessível. O uso do Docker, em conjunto com o WSL, é essencial para nossos laboratórios, pois garante a replicabilidade do ambiente de desenvolvimento, independentemente do sistema operacional usado por cada estudante.
 
-**Nota**: Usuários de sistemas baseados em Linux ou MacOS não precisam utilizar o WSL, pois esses sistemas já possuem suporte nativo ao Docker. Para executar containers, basta instalar o Docker diretamente, sem a necessidade de qualquer subsistema ou ferramenta adicional. 
+**Nota**: Usuários de sistemas baseados em Linux ou MacOS não precisam utilizar o WSL, pois esses sistemas já possuem suporte nativo ao Docker. Para executar containers, basta instalar o Docker diretamente, sem a necessidade de qualquer subsistema ou ferramenta adicional.
 
 ### Passo 1: Verificação dos Requisitos
 
@@ -329,13 +328,13 @@ Já no VirtualBox (ambiente servidor), é praticamente mandatório o uso de cone
 ```bash   
    sudo su -
    cd /opt
-   git clone https://github.com/klaytoncastro/idp-bigdata
+   git clone https://github.com/klaytoncastro/ceub-bigdata
 ```
 
 2. Cada ambiente deve ser montado conforme necessidade de uso e indicação do Professor. Ao entrar na subpasta correspondente a cada ambiente, basta construir e iniciar os serviços usando o Docker Compose. Por exemplo, para o Jupyter/Spark:
 
 ```bash
-   cd /opt/idp-bigdata/jupyter-spark
+   cd /opt/ceub-bigdata/jupyter-spark
    docker-compose build
    docker-compose up -d
 ```
@@ -495,4 +494,4 @@ Nas VMs (configuração alternativa), precisamos evitar desligamentos abruptos, 
 
 ### Conclusão
 
-Agora você está com o ambiente preparado e pronto para começar os laboratórios. Em caso de dúvidas, não hesite em me contactar: [klayton.castro@idp.edu.br](klayton.castro@idp.edu.br).
+Agora você está com o ambiente preparado e pronto para começar os laboratórios. Em caso de dúvidas, não hesite em me contactar: [klayton.castro@ceub.edu.br](klayton.castro@ceub.edu.br).
