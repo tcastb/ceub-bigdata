@@ -7,9 +7,9 @@ services:
       - "9042:9042"
     networks:
       - mybridge
-    volumes:
-      - cassandra_data:/var/lib/cassandra
-      - ./datasets:/datasets
+#    volumes:
+#      - cassandra_data:/var/lib/cassandra
+#      - ./datasets:/datasets
 
   cassandra-web:
     image: ipushc/cassandra-web
@@ -25,7 +25,7 @@ services:
       - CASSANDRA_PORT=9042
       - CASSANDRA_USERNAME=cassandra  
       - CASSANDRA_PASSWORD=cassandra  
-    command: ["/wait-for-it.sh", "cassandra:9042", "--", "./service", "-c", "config.yaml"]  # Supondo que o config.yaml esteja correto e disponível
+    command: ["/wait-for-it.sh", "cassandra:9042", "--", "./service", "-c", "config.yaml"]  # Um arquivo config.yaml deve estar com disponível e com a sintaxe correta para fornecer as diretivas adicionais de customização. 
     depends_on:
       - cassandra
     networks:
@@ -36,6 +36,6 @@ networks:
     driver: bridge
     external: true
 
-volumes:
-  cassandra_data:
-  datasets:
+#volumes:
+#  cassandra_data:
+#  datasets:

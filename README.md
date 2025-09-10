@@ -15,8 +15,6 @@ Ao longo do curso, exploraremos conceitos, infraestrutura e aplicações de Big 
 | 03 | [MongoDB & Python](https://www.kaggle.com/code/ganu1899/mongodb-with-python)         | Prática com MongoDB e Python no Kaggle                     | 29/08/2025 |
 | 04 | [Censo IES 2022](./jupyter/#4-limpeza-preparação-e-importação-de-dados-reais) | Análise de Dados do Censo IES                              | 05/09/2025 |
 | 05 | [Cassandra](./cassandra/)                                                            | Prática com Banco de Dados Colunar                         | 12/09/2025 |
-
-
 <!--
 | 06 | [Redis](./redis/)                                                                    | Prática com Banco de Dados Chave-Valor                     | 02/04/2025 |
 | 07 | [RabbitMQ](./rabbitmq/)                                                              | Prática com Message Broker                                 | 09/04/2025 |
