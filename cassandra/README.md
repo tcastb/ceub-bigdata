@@ -152,7 +152,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS Estudantes_por_nome AS
 
 Ou seja, concluímos que a proposta do Cassandra — e dos bancos NoSQL em geral — não é competir diretamente com o modelo relacional, mas sim oferecer uma alternativa superior para casos de uso onde o SQL tradicional enfrenta limitações, como em ambientes com altíssimos volumes de dados, exigência de elasticidade horizontal, e baixa tolerância a pontos únicos de falha. JOINs, transações ACID e forte vinculação ao esquema, embora extremamente úteis em contextos transacionais centralizados, podem se tornar gargalos em ambientes distribuídos e escaláveis, comprometendo a tolerância ao particionamento e a performance em larga escala. Cassandra adota um modelo que privilegia desempenho previsível, resiliência e escalabilidade linear, sendo ideal para aplicações modernas baseadas em nuvem, dados em tempo real, e arquiteturas orientadas a eventos.
 
-## 3. Prática em Laboratório 
+## 3. Prática em Laboratório
 
 Agora vamos para a prática! Execute os contêineres do Cassandra (DB e GUI) e conclua o roteiro a seguir. Se este for seu primeiro acesso, vá até o diretório `/opt/ceub-bigdata/cassandra` e certifique-se que o script `wait-for-it.sh` tenha permissão de execução: 
 
@@ -161,26 +161,26 @@ cd /opt/ceub-bigdata/cassandra
 chmod +x wait-for-it.sh
 ```
 
-Agora suba os contêineres: 
+Agora suba os contêineres:
 
 ```bash
 docker-compose up -d
 ```
 
-Verifique se eles estão ativos e sem erros de implantação: 
+Verifique se eles estão ativos e sem erros de implantação:
 
 ```bash
 docker ps
 docker-compose logs
 ```
 
-### Acesso à GUI 
+### Acesso à GUI
 
-Abra um navegador da web e acesse `http://localhost:3000/#/main` para visualizar o Cassandra Web, a interface web complementar que foi disponibilizada como GUI em nosso `docker-compose.yml`. Para quem está utilizando a VM do Virtual Box, lembre-se de configurar o NAT para tornar disponível a porta 3000 ao computador hospedeiro. 
+Abra um navegador da web e acesse `http://localhost:3000/#/main` para visualizar o Cassandra Web, a interface web complementar que foi disponibilizada como GUI em nosso `docker-compose.yml`. Para quem está utilizando a VM do Virtual Box, lembre-se de configurar o NAT para tornar disponível a porta 3000 ao computador hospedeiro.
 
-### Acesso à CLI 
+### Acesso à CLI
 
-Você também pode interagir com o Cassandra por meio da comando-line (CLI). Aqui estão os passos para acessar a CLI do Cassandra (CQL Shell): 
+Você também pode interagir com o Cassandra por meio da comando-line (CLI). Aqui estão os passos para acessar a CLI do Cassandra (CQL Shell):
 
 ```shell
 docker exec -it cassandra-container cqlsh
@@ -211,11 +211,7 @@ CREATE KEYSPACE IF NOT EXISTS AulaDemo WITH replication = {'class': 'SimpleStrat
 USE AulaDemo;
 ```
 
-<!--
-
-Em um ambiente de produção, você geralmente deseja uma estratégia de replicação mais robusta para garantir alta disponibilidade e tolerância a falhas. Uma estratégia comum é usar o NetworkTopologyStrategy em vez da SimpleStrategy, especialmente em um ambiente de vários datacenters.
-
-Aqui está um exemplo de como você poderia definir um keyspace em produção com o NetworkTopologyStrategy:
+Em um ambiente de produção, você geralmente deseja uma estratégia de replicação mais robusta para garantir alta disponibilidade e tolerância a falhas. Uma estratégia comum é usar `NetworkTopologyStrategy` em vez de `SimpleStrategy`, especialmente em um ambiente de vários datacenters. Aqui está um exemplo de como você poderia definir um keyspace em produção com o NetworkTopologyStrategy:
 
 ```sql
 CREATE KEYSPACE IF NOT EXISTS AulaDemo2 
@@ -224,12 +220,12 @@ WITH replication = {'class': 'NetworkTopologyStrategy', 'DC1': 3, 'DC2': 2};
 
 Neste exemplo:
 
-NetworkTopologyStrategy é a estratégia de replicação usada.
-'DC1': 3 indica que os dados devem ser replicados em três réplicas dentro do datacenter chamado 'DC1'.
-'DC2': 2 indica que os dados também devem ser replicados em duas réplicas dentro do datacenter chamado 'DC2'.
+- `NetworkTopologyStrategy` é a estratégia de replicação usada.
+- 'DC1': 3 indica que os dados devem ser espalhados em três réplicas dentro do datacenter chamado 'DC1'.
+- 'DC2': 2 indica que os dados também devem ser espalhados em duas réplicas dentro do datacenter chamado 'DC2'.
+
 Essa configuração é mais robusta porque espalha as réplicas por vários datacenters, proporcionando maior redundância e tolerância a falhas em comparação com a SimpleStrategy. No entanto, é importante adaptar a configuração de replicação de acordo com os requisitos específicos de disponibilidade e desempenho do seu aplicativo e com a arquitetura do seu ambiente de produção.
 
--->
 
 ```sql
 -- Criar uma tabela chamada "Estudantes"
@@ -322,15 +318,15 @@ DELETE FROM estudantes WHERE idade < 20;
 DROP KEYSPACE IF EXISTS AulaDemo;
 ```
 
-<!-- OBJETIVO DOS DESAFIOS: Fazer os alunos perceberem que, no Cassandra, a exclusão e atualização de dados exigem a referência direta à chave primária e que, ao parar e reiniciar o contêiner, os dados não serão preservados por padrão, a não ser que configurem a persistência no contêiner. --> 
+<!-- OBJETIVO: No Cassandra, a exclusão e atualização de dados exigem a referência direta à chave primária e que, ao parar e reiniciar o contêiner, os dados não serão preservados por padrão, a não ser que configurem a persistência no contêiner. -->
 
 ### Desafio 1 - Exclusão e atualização de dados e impacto da chave primária
 
-- Você conseguiu efetuar todos os comandos propostos? 
+- Você conseguiu efetuar todos os comandos propostos?
 - Qual a importância da chave primária no Cassandra?
 - Por que não podemos excluir ou atualizar um registro apenas pelo nome?
 
-<!-- RESPOSTAS -->
+<!-- RESPOSTAS 
 
 > Porque Cassandra é um banco distribuído e precisa da chave primária para localizar o dado no nó correto. A PK define a distribuição dos dados no cluster e garante que as operações sejam eficientes. Se escolhermos mal a chave primária ao modelar uma tabela, o desempenho pode ser comprometido, resultando em gargalos e dificuldades na consulta. Como a coluna nome não faz parte da chave primária na tabela Estudantes, você não pode utilizá-la diretamente na cláusula WHERE para filtrar os dados e deve ter obtido um erro no comando acima. Uma alternativa, seria alterar a estrutura da chave primária para incluir nome como parte da chave de clustering irá permitir a filtragem por nome:
 
@@ -366,7 +362,7 @@ finally:
     if cluster:
         cluster.shutdown()
 ```
-<!---->
+-->
 
 ### Desafio 2 - Compreendendo a configuração de persistência de dados em containers
 
@@ -409,11 +405,11 @@ SELECT * FROM TestePersistencia.usuarios;
 - Por que isso ocorreu? 
 - Pesquise sobre como garantir a persistência dos dados no Cassandra ao reiniciar o contêiner. 
 
-**Dica:** Compare os arquivos `docker-compose.yml` do MongoDB e Cassandra. 
+**Dica:** Compare os arquivos `docker-compose.yml` do MongoDB e Cassandra.
 
-<!-- RESPOSTAS: -->
+<!-- RESPOSTAS:
 > Os dados foram perdidos porque em nosso ambiente, tanto o Cassandra, quanto outros SGBD (SQL ou NoSQL), não irão persistir dados se não houver um volume montado no Docker. O Cassandra armazena dados no diretório `/var/lib/cassandra`, mas sem um volume persistente, esse diretório é recriado ao reiniciar o contêiner. Você pode criar um volume Docker persistente montando-o em `/var/lib/cassandra`. 
-<!---->
+-->
 
 ### Atividade 2: Administração do Ambiente
 
@@ -452,24 +448,16 @@ Reproduza a **mesma análise de dados** feita anteriormente no MongoDB, agora us
 
 **Dica:** Você precisa definir um volume para associar o diretório onde se encontram os datasets em sua máquina e referenciá-los no contêiner.
 
-<!-- RESPOSTAS -->
+<!-- RESPOSTAS
 
 ### Importando o CSV para o Cassandra
 ```bash
 cqlsh -e "COPY inep.ies FROM 'caminho/para/ies.csv' WITH DELIMITER=',' AND HEADER=TRUE;"
 ```
-<!---->
 
-## 4. Considerações Finais
+### 4. Entendendo Erros Comuns e Soluções
 
-Além das ferramentas de linha de comando, existem diversas ferramentas gráficas e serviços gerenciados que podem facilitar a administração e interação com o Apache Cassandra:
-
-- DataStax DevCenter: Interface gráfica (GUI) que permite criar, editar e consultar dados no Cassandra de forma visual e intuitiva.
-- DataStax Astra: Serviço de banco de dados gerenciado baseado no Cassandra, permitindo a implantação e administração de clusters na nuvem com configuração simplificada.
-
-### Entendendo Erros Comuns e Soluções 
-
-- Ao trabalhar em ambientes com Docker, Você precisa definir corretamente as seções de volumes individual e geral para garantir persistência do ambiente em contêiner, estabelecendo uma rede comum e volumes de armazenamento que preservem os dados. 
+- Ao trabalhar em ambientes com Docker, Você precisa definir corretamente as seções de volumes individual e geral para garantir persistência do ambiente em contêiner, estabelecendo uma rede comum e volumes de armazenamento que preservem os dados.
 
 ```shell
 version: '3.3'
@@ -515,13 +503,13 @@ volumes:
   datasets:
 ```
 
-- Ao tentar conectar ao Cassandra via Python (`cassandra-driver`), ocorre um erro como este: `NoHostAvailable: ('Unable to connect to any servers', {'127.0.0.1': error...})`. Assim como fizemos com o MongoDB, você precisa colocar os contêineres do Cassandra na mesma rede do Jupyter (`mybridge`) e inspecionar a rede com `docker network inspect` ou o próprio contêiner com `docker inspect cassandra-container` para descobrir qual é o IP correto associado ao contêiner. No Jupyter, você também pode referenciar o nome atribuído ao contêiner ao invés do IP, por exemplo, `cassandra-container`. 
+- Ao tentar conectar ao Cassandra via Python (`cassandra-driver`), ocorre um erro como este: `NoHostAvailable: ('Unable to connect to any servers', {'127.0.0.1': error...})`. Assim como fizemos com o MongoDB, você precisa colocar os contêineres do Cassandra na mesma rede do Jupyter (`mybridge`) e inspecionar a rede com `docker network inspect` ou o próprio contêiner com `docker inspect cassandra-container` para descobrir qual é o IP correto associado ao contêiner. No Jupyter, você também pode referenciar o nome atribuído ao contêiner ao invés do IP, por exemplo, `cassandra-container`.
 
 ```shell
 docker inspect cassandra-container | grep "IPAddress"
 ```
 
-- Ao executar um comando `DELETE` ou `UPDATE`, Cassandra retorna um erro dizendo que a chave primária (`PK`) está ausente: `Invalid Request: Cannot execute DELETE query since the PRIMARY KEY is missing`. Você precisa selecionar a PK e deletar a partir dela: 
+- Ao executar um comando `DELETE` ou `UPDATE`, Cassandra retorna um erro dizendo que a chave primária (`PK`) está ausente: `Invalid Request: Cannot execute DELETE query since the PRIMARY KEY is missing`. Você precisa selecionar a PK e deletar a partir dela:
 
 ```sql
 SELECT id FROM Estudantes WHERE nome = 'João Leite';
@@ -580,7 +568,7 @@ def apply_operation_by_filter(session, table, filters, pk_field, operation, upda
         if operation.upper() == "DELETE":
             delete_query = f"DELETE FROM {table} WHERE {pk_field} = %s"
             session.execute(delete_query, (pk,))
-            print(f"🗑️ DELETE: {pk_field}={pk}")
+            print(f"DELETE: {pk_field}={pk}")
         elif operation.upper() == "UPDATE" and update_values:
             set_clause = ', '.join([f"{k} = %s" for k in update_values.keys()])
             update_query = f"UPDATE {table} SET {set_clause} WHERE {pk_field} = %s"
@@ -633,6 +621,15 @@ finally:
     close_connection(session, cluster)
 ```
 
-### Conclusão
+-->
 
-Esta documentação fornece uma visão geral dos aspectos essenciais do Apache Cassandra, um sistema de gerenciamento de banco de dados NoSQL colunar robusto e escalável. Exploramos métodos de importação de dados, backup e restauração, bem como outras ferramentas para administração de dados. Se você deseja aprofundar seu conhecimento, consulte também a documentação oficial da ferramenta. 
+## 4. Considerações Finais
+
+Esta documentação fornece uma visão geral dos aspectos essenciais do Apache Cassandra, um sistema de gerenciamento de banco de dados NoSQL colunar robusto e escalável. Exploramos métodos de importação de dados, backup e restauração, bem como outras ferramentas para administração de dados.
+
+Além das ferramentas de linha de comando, existem diversas ferramentas gráficas e serviços gerenciados que podem facilitar a administração e interação com o Apache Cassandra:
+
+- DataStax DevCenter: Interface gráfica (GUI) que permite criar, editar e consultar dados no Cassandra de forma visual e intuitiva.
+- DataStax Astra: Serviço de banco de dados gerenciado baseado no Cassandra, permitindo a implantação e administração de clusters na nuvem com configuração simplificada.
+
+Se você deseja aprofundar seu conhecimento, consulte também a documentação oficial da ferramenta.

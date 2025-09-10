@@ -6,15 +6,16 @@ Olá, estudante! Seja bem-vindo aos laboratórios da disciplina de **Fundamentos
 
 Ao longo do curso, exploraremos conceitos, infraestrutura e aplicações de Big Data por meio de desafios práticos. Cada desafio proporcionará uma experiência aplicada, permitindo que você consolide os conhecimentos adquiridos e aprofunde seu aprendizado de maneira progressiva. Durante essa jornada, você terá contato com ferramentas amplamente utilizadas no mercado e empregará técnicas para resolver problemas reais.
 
-<!--
+
 
 | #  | Atividade                                                                            | Desafio                                                    | Prazo      |
 |----|--------------------------------------------------------------------------------------|------------------------------------------------------------|------------|
-| 01 | [MongoDB](./mongodb/)                                                                | Prática com Banco de Dados de Documentos                   | 26/02/2025 |
-| 02 | [Jupyter & MongoDB](./jupyter/)                                                      | Integração de Ambientes e Manipulação de Dados com MongoDB | 05/03/2025 |
-| 03 | [MongoDB & Python](https://www.kaggle.com/code/ganu1899/mongodb-with-python)         | Prática com MongoDB e Python no Kaggle                     | 12/03/2025 |
-| 04 | [Censo IES 2022 e 2023](./jupyter/#4-limpeza-preparação-e-importação-de-dados-reais) | Análise de Dados do Censo IES                              | 19/03/2025 |
-| 05 | [Cassandra](./cassandra/)                                                            | Prática com Banco de Dados Colunar                         | 26/03/2025 |
+| 01 | [MongoDB](./mongodb/)                                                                | Prática com Banco de Dados de Documentos                   | 15/08/2025 |
+| 02 | [Jupyter & MongoDB](./jupyter/)                                                      | Integração de Ambientes e Manipulação de Dados com MongoDB | 22/08/2025 |
+| 03 | [MongoDB & Python](https://www.kaggle.com/code/ganu1899/mongodb-with-python)         | Prática com MongoDB e Python no Kaggle                     | 29/08/2025 |
+| 04 | [Censo IES 2022](./jupyter/#4-limpeza-preparação-e-importação-de-dados-reais) | Análise de Dados do Censo IES                              | 05/09/2025 |
+| 05 | [Cassandra](./cassandra/)                                                            | Prática com Banco de Dados Colunar                         | 12/09/2025 |
+<!--
 | 06 | [Redis](./redis/)                                                                    | Prática com Banco de Dados Chave-Valor                     | 02/04/2025 |
 | 07 | [RabbitMQ](./rabbitmq/)                                                              | Prática com Message Broker                                 | 09/04/2025 |
 | 08 | [Celery](./celery/)                                                                  | Prática com Serviços de Mensageria                         | 23/04/2025 |

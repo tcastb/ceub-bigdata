@@ -8,25 +8,25 @@ Este guia detalha o processo de limpeza, preparação e importação de dados re
 
 ## 2. Ambiente de Desenvolvimento
 
-No decorrer do curso, realizaremos a integração de nossas ferramentas de Big Data e NoSQL com o Jupyter. Siga as instruções abaixo para configurar seu ambiente: 
+No decorrer do curso, realizaremos a integração de nossas ferramentas de Big Data e NoSQL com o Jupyter. Siga as instruções abaixo para configurar seu ambiente:
 
-a) Se estiver usando uma VM, conforme instruções fornecidas no `README.md` do repositório [CEUB-BigData](https://github.com/klaytoncastro/ceub-bigdata), certifique-se de que a VM está executando e que você pode acessá-la via SSH. Caso tenha optado por hospedar os contêineres diretamente em sua máquina, certifique-se de ter o Git, Docker, Docker Compose e os utilitários de processamento e conversão de textos apropriados. 
+a) Se estiver usando uma VM, conforme instruções fornecidas no `README.md` do repositório [CEUB-BigData](https://github.com/klaytoncastro/ceub-bigdata), certifique-se de que a VM está executando e que você pode acessá-la via SSH. Caso tenha optado por hospedar os contêineres diretamente em sua máquina, certifique-se de ter o Git, Docker, Docker Compose e os utilitários de processamento e conversão de textos apropriados.
 
-b) Navegue até a pasta do repositório, por exemplo: `cd /opt/ceub-bigdata`. 
+b) Navegue até a pasta do repositório, por exemplo: `cd /opt/ceub-bigdata`.
 
-c) Caso **já tenha clonado** o repositório anteriomente, **mas não realizou nenhuma tarefa**, execute o comando a seguir para garantir que seu ambiente esteja com as atualizações mais recentes: 
+c) Caso **já tenha clonado** o repositório anteriomente, **mas não realizou nenhuma tarefa**, execute o comando a seguir para garantir que seu ambiente esteja com as atualizações mais recentes:
 
 ```bash
 git pull origin main
 ```
-d) Caso esta seja a **primeira clonagem** do repositório ou **já tenha realizado alguma operação**, como a importação de dados, execute os comandos abaixo em seu terminal. 
+d) Caso esta seja a **primeira clonagem** do repositório ou **já tenha realizado alguma operação**, como a importação de dados, execute os comandos abaixo em seu terminal.
 
 ```bash
 git clone https://github.com/klaytoncastro/ceub-bigdata
 chmod +x permissions.sh
 ./permissions.sh
 ```
-e) Caso queira aproveitar o trabalho anterior, basta renomear a pasta ceub-bigdata já clonada e fazer o `git clone` ou `git pull` novamente. 
+e) Caso queira aproveitar o trabalho anterior, basta renomear a pasta ceub-bigdata já clonada e fazer o `git clone` ou `git pull` novamente.
 
 f) Para permitir a comunicação entre os contêineres do Jupyter e MongoDB, o arquivo `docker-compose.yml` deve ser atualizado para conectá-los à rede `mybridge` que você. 
 
@@ -53,6 +53,7 @@ g) Agora crie a rede virtual `mybridge` no Docker:
 ```bash
 docker network create --driver bridge mybridge
 ```
+
 h) Acesse as respectivas subpastas em nosso repositório (`/opt/ceub-bigdata/mongodb` e `/opt/ceub-bigdata/jupyter`) e suba os contêineres do MongoDB e Jupyter em cada uma delas: 
 
 ```bash
@@ -62,7 +63,8 @@ cd /opt/ceub-bigdata/jupyter
 docker-compose build
 docker-compose up -d 
 ```
-i) Caso seja o seu primeiro acesso ao Jupyter, execute o comando a seguir para visualizar os logs e identificar o token para utilizar o ambiente: 
+
+i) Caso seja o seu primeiro acesso ao Jupyter, execute o comando a seguir para visualizar os logs e identificar o token para utilizar o ambiente:
 
 ```bash
 docker-compose logs | grep 'token='
@@ -70,11 +72,11 @@ docker-compose logs | grep 'token='
 
 ### Via GUI
 
-- Copie o token identificado no passo anterior e acesse o Jupyter em seu navegador usando o [link](http://localhost:8888). Role ao final da página, insira o token de acesso e configure uma nova senha. A partir de então, a autenticação por token não será mais necessária, mesmo que você desligue e ligue novamente o ambiente do Jupyter. 
+- Copie o token identificado no passo anterior e acesse o Jupyter em seu navegador usando o [link](http://localhost:8888). Role ao final da página, insira o token de acesso e configure uma nova senha. A partir de então, a autenticação por token não será mais necessária, mesmo que você desligue e ligue novamente o ambiente do Jupyter.
 
 ### Via CLI
 
-- Posteriormente, caso deseje alterar a senha via CLI, execute o script abaixo: 
+- Posteriormente, caso deseje alterar a senha via CLI, execute o script abaixo:
 
 ```bash
 docker exec -it <nome_do_contêiner> /bin/bash
@@ -109,7 +111,7 @@ a) Verifique o IP atribuído ao contêiner do MongoDB (pois ele deverá ser refe
 docker network inspect mybridge
 ```
 
-b) Teste a conexão ao MongoDB com o código abaixo: 
+b) Teste a conexão ao MongoDB com o código abaixo:
 
 ```python
 from pymongo import MongoClient
@@ -123,6 +125,7 @@ try:
 except ConnectionFailure:
     print("Falha na conexão ao servidor MongoDB")
 ```
+
 ### Prática com Dataset Exemplo 
 
 a) Para praticar a análise de dados com Python e MongoDB, sugerimos que você explore datasets de exemplo disponíveis no [Kaggle](https://www.kaggle.com/). O Kaggle é uma plataforma online amplamente utilizada por cientistas de dados, pesquisadores e entusiastas de machine learning. Ele oferece um ambiente onde os usuários podem colaborar, compartilhando e aprendendo uns com os outros, além de ter acesso a uma vasta quantidade de datasets e competições de aprendizado de máquina. 
@@ -142,14 +145,15 @@ Antes de qualquer análise, é importante realizar as etapas de limpeza e prepar
 
 ### Preparando a estrutura de importação
 
-a) Em seu terminal, baixe e descompacte o arquivo do dataset utilizando os comandos abaixo: 
+a) Em seu terminal, baixe e descompacte o arquivo do dataset utilizando os comandos abaixo:
 
 ```bash
 cd /opt/ceub-bigdata/mongodb/datasets
 wget https://download.inep.gov.br/microdados/microdados_censo_da_educacao_superior_2022.zip --no-check-certificate
 unzip microdados_censo_da_educacao_superior_2022.zip
 ```
-b) Como precisaremos apenas dos arquivos CSVs (Comma Separated Values) com as IES e Cursos por elas disponibilizados, organize a subpasta `datasets` executando os comandos abaixo para manter apenas a estrutura de pastas e dados estritamente necessários. 
+
+b) Como precisaremos apenas dos arquivos CSVs (Comma Separated Values) com as IES e Cursos por elas disponibilizados, organize a subpasta `datasets` executando os comandos abaixo para manter apenas a estrutura de pastas e dados estritamente necessários.
 
 ```bash
 rm microdados_censo_da_educacao_superior_2022.zip && mv microdados_educaЗ╞o_superior_2022 inep
@@ -161,24 +165,25 @@ rm -rf inep/dados && rm -rf inep/Anexos && rm -rf inep/leia-me
 
 O `sed` (stream editor) é uma ferramenta de processamento de texto disponível em sistemas Linux, usada para analisar, transformar textos e operar em fluxos de dados, realizando operações como substituição, deleção e inserção. Sua flexibilidade vem do uso de expressões regulares, permitindo encontrar e substituir padrões de texto. O `sed` é frequentemente usado em conjunto com outras ferramentas de CLI, como `awk`, `grep` e `cut`, para criar soluções robustas de processamento de textos. Veja alguns exemplos de uso:
 
-a) Substituir texto em um arquivo: 
+a) Substituir texto em um arquivo:
 
 ```bash
 sed 's/antigo/novo/g' arquivo.txt
 ```
 
-b) Deletar linhas que contêm um certo padrão: 
+b) Deletar linhas que contêm um certo padrão:
 
 ```bash
 sed '/padrão/d' arquivo.txt
 ```
+
 c) Inserir texto antes ou depois de um padrão:
 
 ```bash
 sed '/padrão/i Novo Texto' arquivo.txt
 sed '/padrão/a Novo Texto' arquivo.txt
 ```
-### Remoção e substituição de caracteres indesejados 
+### Remoção e substituição de caracteres indesejados
 
 a) Precisaremos realizar a remoção e substituição de caracteres indesejados para viabilizar a correta importação do dataset. Vá até a subpasta do dataset (`cd /opt/ceub-bigdata/mongodb/inep`) e execute o comando abaixo:
 
@@ -192,7 +197,7 @@ c) Estas medidas são necessárias para corrigir os dados e torná-los compatív
 
 ### Verificação de encoding e conversão do dataset
 
-a) Padrões de codificação de texto são conjuntos de mapeamentos de caracteres que definem como eles são representados em bytes para armazenamento e processamento em um computador. 
+a) Padrões de codificação de texto são conjuntos de mapeamentos de caracteres que definem como eles são representados em bytes para armazenamento e processamento em um computador.
 
 b) O padrão de codificação ISO 8859-1, também conhecido como Latin-1, é um conjunto de caracteres que inclui os caracteres comuns do ASCII (American Standard Code for Information Interchange) e os adicionais usados por várias línguas do oeste europeu, como acento e cedilha da língua portuguesa.
 
@@ -202,7 +207,8 @@ c) Nos sistemas Linux, o comando `file` é útil para mostrar informações sobr
 file -i MICRODADOS_ED_SUP_IES_2022_corrigido.csv
 file -i MICRODADOS_CADASTRO_CURSOS_2022.CSV
 ```
-d) Nos sistemas Linux, o utilitário `iconv` é utilizado para converter a codificação de caracteres de determinado arquivo. O trecho `-f ISO-8859-1` indica a codificação original do arquivo e o trecho `-t UTF-8` indica a codificação desejada (conversão). Assim, com o comando abaixo podemos converter os arquivos do formato ISO 8859-1 para UTF-8 requerido por nosso ambiente MongoDB: 
+
+d) Nos sistemas Linux, o utilitário `iconv` é utilizado para converter a codificação de caracteres de determinado arquivo. O trecho `-f ISO-8859-1` indica a codificação original do arquivo e o trecho `-t UTF-8` indica a codificação desejada (conversão). Assim, com o comando abaixo podemos converter os arquivos do formato ISO 8859-1 para UTF-8 requerido por nosso ambiente MongoDB:
 
 ```bash
 iconv -f ISO-8859-1 -t UTF-8 MICRODADOS_ED_SUP_IES_2022_corrigido.csv > MICRODADOS_ED_SUP_IES_2022_corrigido_UTF8.csv
@@ -210,11 +216,11 @@ iconv -f ISO-8859-1 -t UTF-8 MICRODADOS_ED_SUP_IES_2022_corrigido.csv > MICRODAD
 
 ### Processo de normalização de texto
 
-a) A presença de acentos e caracteres especiais no texto pode causar problemas de inconsistência de codificação e interpretação, especialmente quando há transferência de dados entre diferentes sistemas ou plataformas. Além disso, as consultas aos bancos de dados podem ser dificultadas pela presença de caracteres especiais. Assim, a substituição desses caracteres ajuda a evitar problemas de compatibilidade e consistência. 
+a) A presença de acentos e caracteres especiais no texto pode causar problemas de inconsistência de codificação e interpretação, especialmente quando há transferência de dados entre diferentes sistemas ou plataformas. Além disso, as consultas aos bancos de dados podem ser dificultadas pela presença de caracteres especiais. Assim, a substituição desses caracteres ajuda a evitar problemas de compatibilidade e consistência.
 
-b) Dessa forma, a normalização de texto, incluindo a substituição de caracteres especiais, é uma prática comum ao empreender análises de Big Data, sendo crucial para obter resultados mais assertivos em análises de texto. Isso garante um grau mínimo de padronização e evita discrepâncias estatísticas causadas por variações na acentuação de palavras. 
+b) Dessa forma, a normalização de texto, incluindo a substituição de caracteres especiais, é uma prática comum ao empreender análises de Big Data, sendo crucial para obter resultados mais assertivos em análises de texto. Isso garante um grau mínimo de padronização e evita discrepâncias estatísticas causadas por variações na acentuação de palavras.
 
-c) Adicionalmente, no contexto de Machine Learning, especialmente nas aplicações envolvendo o processamento de linguagem natural e modelos de linguagem de grande escala (LLM), costuma-se empregar técnicas de stemming para reduzir palavras à sua forma base, facilitando o agrupamento semântico de palavras com mesmo radical, mas que apresentam formas diferentes devido à conjugação verbal, pluralização, dentre outros motivos. 
+c) Adicionalmente, no contexto de Machine Learning, especialmente nas aplicações envolvendo o processamento de linguagem natural e modelos de linguagem de grande escala (LLM), costuma-se empregar técnicas de stemming para reduzir palavras à sua forma base, facilitando o agrupamento semântico de palavras com mesmo radical, mas que apresentam formas diferentes devido à conjugação verbal, pluralização, dentre outros motivos.
 
 d) No nosso dataset faremos algo mais simples neste primeiro momento, apenas reduzindo eventuais discrepâncias causadas por acentuações e cedilhas. O comando abaixo utiliza novamente o `sed`, agora para substituir caracteres especiais por seus equivalentes sem acentuação. A opção `-i` indica que a modificação será feita diretamente no arquivo, sem a necessidade de criar um novo:
 
@@ -222,16 +228,17 @@ d) No nosso dataset faremos algo mais simples neste primeiro momento, apenas red
 sed -i 'y/áàãâäéèêëíìîïóòõôöúùûüçñÁÀÃÂÄÉÈÊËÍÌÎÏÓÒÕÔÖÚÙÛÜÇÑ/aaaaaeeeeiiiiooooouuuucnAAAAAEEEEIIIIOOOOOUUUUCN/' MICRODADOS_ED_SUP_IES_2022_corrigido_UTF8.csv
 ```
 
-### Importação para o MongoDB 
+### Importação para o MongoDB
 
-a) Uma vez que realizamos uma limpeza e preparação básicas, agora estamos prontos para efetuar a importação de dados para o MongoDB. Utilizaremos o `mongoimport`, uma ferramenta CLI que faz parte do MongoDB e é usada para importar dados no formato JSON, CSV ou TSV em uma coleção. 
+a) Uma vez que realizamos uma limpeza e preparação básicas, agora estamos prontos para efetuar a importação de dados para o MongoDB. Utilizaremos o `mongoimport`, uma ferramenta CLI que faz parte do MongoDB e é usada para importar dados no formato JSON, CSV ou TSV em uma coleção.
 
 b) O comando abaixo é utilizado para executar a ferramenta `mongoimport`, dentro do contêiner do MongoDB. As opções `--db` e `--collection` especificam o banco de dados e a coleção onde os dados serão importados, respectivamente. O parâmetro `--type csv` indica que o arquivo de entrada é um CSV. A opção `--file` especifica o caminho para o arquivo de entrada, no caso, o arquivo base de IES do dataset. O parâmetro `--headerline` indica que a primeira linha do arquivo contém os nomes das colunas. A opção `--ignoreBlanks` ignora campos em branco. Por fim, `--username`, `--password`, e `--authenticationDatabase` são utilizados para autenticação preliminar no MongoDB.
 
 ```bash
 docker exec -it mongo_service mongoimport --db inep --collection ies --type csv --file /datasets/inep/MICRODADOS_ED_SUP_IES_2022_corrigido_UTF8.csv --headerline --ignoreBlanks --username root --password mongo --authenticationDatabase admin
 ```
-c) Agora vamos repetir todo o processo de preparação, limpeza e importação para o arquivo que irá alimentar a collection `cursos`: 
+
+c) Agora vamos repetir todo o processo de preparação, limpeza e importação para o arquivo que irá alimentar a collection `cursos`:
 
 ```bash
 sed 's/\"//g; s/;/,/g' MICRODADOS_CADASTRO_CURSOS_2022.CSV > MICRODADOS_CADASTRO_CURSOS_2022_corrigido.CSV
@@ -245,9 +252,9 @@ docker exec -it mongo_service mongoimport --db inep --collection cursos --type c
 
 ## 5. Exploração e Análise de Dados
 
-A Análise Exploratória de Dados (AED) é um método estatístico que busca identificar padrões, relações e anomalias nos dados. Trata-se de uma abordagem para explorar dados de maneira flexível e visual, antes de aplicar métodos estatísticos mais rigorosos. Nesse contexto, a visualização de dados é um componente crucial e ajuda a comunicar informações complexas de maneira mais clara, auxiliando na compreensão dos resultados da análise. 
+A Análise Exploratória de Dados (AED) é um método estatístico que busca identificar padrões, relações e anomalias nos dados. Trata-se de uma abordagem para explorar dados de maneira flexível e visual, antes de aplicar métodos estatísticos mais rigorosos. Nesse contexto, a visualização de dados é um componente crucial e ajuda a comunicar informações complexas de maneira mais clara, auxiliando na compreensão dos resultados da análise.
 
-A seguir, temos um código em Python, que deve ser executado no seu ambiente Jupyter Notebook. Como já realizamos a preparação, limpeza e importação de dados, vamos conectar o Jupyter ao MongoDB e realizar consultas específicas para extrair informações relevantes e, posteriormente, utilizar essas informações para criar visualizações e ilustrar padrões e relações existentes nos dados. Execute cada bloco de código em células do seu Jupyter notebook e entenda como esta análise foi conduzida. Lembre-se de verificar e alterar o endereço IP correspondente ao seu contêiner MongoDB. 
+A seguir, temos um código em Python, que deve ser executado no seu ambiente Jupyter Notebook. Como já realizamos a preparação, limpeza e importação de dados, vamos conectar o Jupyter ao MongoDB e realizar consultas específicas para extrair informações relevantes e, posteriormente, utilizar essas informações para criar visualizações e ilustrar padrões e relações existentes nos dados. Execute cada bloco de código em células do seu Jupyter notebook e entenda como esta análise foi conduzida. Lembre-se de verificar e alterar o endereço IP correspondente ao seu contêiner MongoDB.
 
 ```python
 #pip install pymongo
@@ -546,8 +553,8 @@ A análise exploratória dos dados (AED) proporcionou alguns insights preliminar
 
 - Número de Docentes por Raça, Cor e Gênero: A maioria dos docentes se autodeclara branca, seguida por pardos, pretos, amarelos, indígenas e não declarados. É importante analisar se existe uma representação proporcional nas instituições educacionais. Assim, mesmo refletindo a realidade racial em termos absolutos considerando a localidade das IES, pode ser analisada uma falta de diversidade em contextos específicos, como em certas áreas do conhecimento (ciências exatas, humanas e biológicas). Quanto ao gênero, há um equilíbrio entre docentes femininos e masculinos, com uma leve predominância feminina, refletindo a distribuição populacional do Brasil.
 
-## Conclusão 
+## Conclusão
 
-Este guia apresentou uma AED do Censo da Educação Superior de 2022, empregando Jupyter e MongoDB, com intuito de oferecer uma experiência prática abrangente, englobando desde os processos iniciais de preparação e limpeza dos dados até as etapas finais de importação, análise e exploração. Assim, ao mesmo tempo que promovemos o desenvolvimento de competências alinhadas às abordagens modernas de Big Data e bancos de dados NoSQL, buscamos facilitar a compreensão acerca da realidade da educação superior no Brasil. 
+Este guia apresentou uma AED do Censo da Educação Superior de 2022, empregando Jupyter e MongoDB, com intuito de oferecer uma experiência prática abrangente, englobando desde os processos iniciais de preparação e limpeza dos dados até as etapas finais de importação, análise e exploração. Assim, ao mesmo tempo que promovemos o desenvolvimento de competências alinhadas às abordagens modernas de Big Data e bancos de dados NoSQL, buscamos facilitar a compreensão acerca da realidade da educação superior no Brasil.
 
-<!--Finalizada a análise preliminar, lembre-se de encerrar corretamente o ambiente para evitar perda de dados e corrupção da VM, utilizando o comando `shutdown -h now`.--> 
+<!--Finalizada a análise preliminar, lembre-se de encerrar corretamente o ambiente para evitar perda de dados e corrupção da VM, utilizando o comando `shutdown -h now`.-->
